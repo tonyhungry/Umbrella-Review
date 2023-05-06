@@ -1,0 +1,76 @@
+---
+title: "Penguins, meet Quarto!"
+subtitle: "Intro to Quarto Exercise"
+author: "Tony Hung"
+format: html
+theme: flatly
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+#| include: false
+
+library(tidyverse)
+library(palmerpenguins)
+```
+
+```{r}
+#| label: plot-penguins
+#| warning: false
+#| echo: false
+#| fig.alt: "Scatterplot with flipper length in millimeters on
+#|  the x-axis, bill length in millimeters on the y-axis, colored
+#|  by species, showing a slightly positive relationship with
+#|  Chinstrap penguins having higher bill length but lower body
+#|  mass, Adelie with low bill length and low body mass, and
+#|  Gentoo with high body mass and high bill length."
+
+ggplot(penguins, 
+       aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(aes(color = species, shape = species)) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(
+    title = "Flipper and bill length",
+    subtitle = "Dimensions for penguins at Palmer Station LTER",
+    x = "Flipper length (mm)", y = "Bill length (mm)",
+    color = "Penguin species", shape = "Penguin species"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| layout-ncol: 2
+#| warning: false
+
+ggplot(penguins, 
+       aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(aes(color = species, shape = species))
+
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(aes(fill = species), 
+                 alpha = 0.5, 
+                 position = "identity")
+
+```
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
