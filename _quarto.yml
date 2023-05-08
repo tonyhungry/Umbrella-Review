@@ -4,14 +4,10 @@ project:
 
 website:
   title: "Umbrella Review of Resilience Measurement"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Write Up
 
 format:
   html:
-    theme: minty
+    theme: litera
     css: styles.css
     toc: true
 

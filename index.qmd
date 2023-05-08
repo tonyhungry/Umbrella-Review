@@ -4,12 +4,11 @@ author: "Tony Hung"
 toc: true
 number-sections: true
 highlight-style: pygments
-date: " Last updated: `r weekdays(Sys.Date())`, `r Sys.Date()`"
+date: last-modified
 format:
   html: 
     code-fold: true
     html-math-method: katex
-    theme: minty
 editor: visual
 ---
 
