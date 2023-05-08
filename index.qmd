@@ -9,7 +9,7 @@ format:
   html: 
     code-fold: true
     html-math-method: katex
-    theme: darkly
+    theme: minty
 editor: visual
 ---
 

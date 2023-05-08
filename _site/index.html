@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tony Hung">
 
-<title>Write Up</title>
+<title>Umbrella Review of Resilience Measurement - Write Up</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,26 +24,81 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="Write Up_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Write Up_files/libs/quarto-html/quarto.js"></script>
-<script src="Write Up_files/libs/quarto-html/popper.min.js"></script>
-<script src="Write Up_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="Write Up_files/libs/quarto-html/anchor.min.js"></script>
-<link href="Write Up_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Write Up_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="Write Up_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="Write Up_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Write Up_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body class="nav-fixed">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Umbrella Review of Resilience Measurement</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Write Up</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
   <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract"><span class="header-section-number">1</span> Abstract</a>
@@ -58,7 +113,8 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   </ul>
 </nav>
-</div>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -111,6 +167,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="4" class="anchored" data-anchor-id="results"><span class="header-section-number">4</span> Results</h2>
 <section id="resilience-definitions" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="resilience-definitions"><span class="header-section-number">4.1</span> Resilience Definitions</h3>
+
+
 </section>
 </section>
 
@@ -121,8 +179,7 @@ ul.task-list li input[type="checkbox"] {
 <li id="fn1"><p>( TITLE-ABS-KEY ( “soci<em>” OR ”commun</em>” OR “neighbour<em>” OR ”urban</em>” OR “econom<em>” OR ”financi</em>” OR “infrastruct<em>” OR ”disast</em>” OR “climate” ) AND TITLE-ABS-KEY ( “resilience” ) AND NOT TITLE-ABS-KEY ( “covid” OR “corona” OR “COVID-19” OR “agri<em>” OR ”supply chain” OR ”agro</em>” OR “land” OR “education” OR “migration” OR “sport” OR “war” OR “coral” OR “farm<em>” ) AND NOT TITLE ( ”politics” OR ”policy” OR ”ecosystem” OR ”forest” OR ”worker” OR ”governance” OR ”river” OR ”ecolo</em>” OR “biodiversity” OR “institution*” ) ) AND ( LIMIT-TO ( SRCTYPE , “j” ) ) AND ( LIMIT-TO ( DOCTYPE , “re” ) ) AND ( EXCLUDE ( SUBJAREA , “MEDI” ) OR EXCLUDE ( SUBJAREA , “AGRI” ) OR EXCLUDE ( SUBJAREA , “PSYC” ) OR EXCLUDE ( SUBJAREA , “BIOC” ) OR EXCLUDE ( SUBJAREA , “COMP” ) OR EXCLUDE ( SUBJAREA , “NEUR” ) OR EXCLUDE ( SUBJAREA , “NURS” ) OR EXCLUDE ( SUBJAREA , “IMMU” ) OR EXCLUDE ( SUBJAREA , “CENG” ) OR EXCLUDE ( SUBJAREA , “HEAL” ) OR EXCLUDE ( SUBJAREA , “PHYS” ) OR EXCLUDE ( SUBJAREA , “CHEM” ) OR EXCLUDE ( SUBJAREA , “PHAR” ) OR EXCLUDE ( SUBJAREA , “VETE” ) OR EXCLUDE ( SUBJAREA , “DENT” ) OR EXCLUDE ( SUBJAREA , “ARTS” ) OR EXCLUDE ( SUBJAREA , “BUSI” ) OR EXCLUDE ( SUBJAREA , “MATH” ) OR EXCLUDE ( SUBJAREA , “MATE” ) ) AND ( LIMIT-TO ( LANGUAGE , “English” ) ) AND ( LIMIT-TO ( EXACTKEYWORD , “Resilience” ) OR LIMIT-TO ( EXACTKEYWORD , “Climate Change” ) OR LIMIT-TO ( EXACTKEYWORD , “Disasters” ) OR LIMIT-TO ( EXACTKEYWORD , “Disaster” ) )<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>AND TITLE-ABS-KEY ( “review” OR “overview” OR “survey” )<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section></div></main>
-<!-- /main column -->
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

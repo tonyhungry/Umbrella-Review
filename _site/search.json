@@ -1,0 +1,107 @@
+[
+  {
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "Write Up",
+    "section": "2 Introduction",
+    "text": "2 Introduction"
+  },
+  {
+    "objectID": "index.html#scoping-scopus-literature-search",
+    "href": "index.html#scoping-scopus-literature-search",
+    "title": "Write Up",
+    "section": "3 Scoping Scopus (Literature Search)",
+    "text": "3 Scoping Scopus (Literature Search)\nThe literature search started with an experimental search in March 2023. The aim of the experimental search of literature is to scout the volume and diversity of the available literature. It was evident from this experiment that there exists a colossal amount of reviews on resilience and not all reviews are equal. This experiment was helpful in further determining the exclusion and inclusion criteria and optimizing the search query as well as the steps for screening review articles.\nThe Scopus search for literature was conducted on the 3rd of April 2023. There are no publication date limitations, which means that any publication published on or before 3rd of April 2023 are accepted. The review process was assisted by using Rayyan. The schematic, adapted PRISMA representation is shown in the following figure.\nThe main keywords used in the query for searching on the Scopus database in titles, abstracts, and keywords were “soci*”, “commun*”, “neighbour*”, “urban”, “econom*”, “financi*”, “infrastruct*”, “disast*”, “climate” and “resilience”. This search query is further restricted by excluding the following keywords in the title-abstract-key: “covid”, “corona”, “COVID-19”, “agri*”, “supply chain”, “agro*”, “land”, “education”, “migration”, “sport”, “war”, “coral”, “farm*” and restricted again with the following keywords in the title: “politics”, “policy”, “ecosystem”, “forest”, “worker”, “governance”, “river”, “ecolo*”, “biodiversity”, “institution*”, since it is out of scope for the paper. The document type is set to reveal review journal articles only. Obvious subject areas such as medicine, agricultural and biological sciences, psychology, biochemistry, genetics and molecular biology, computer science, neuroscience, nursing, immunology and microbiology, chemical engineering, health professions, physics and astronomy, chemistry, pharmacology, toxicology, pharmaceutics, veterinary, dentistry, arts and humanities, business, management and accounting, mathematics, and materials science are all excluded. The language of the review articles is limited to English only. Finally, the search query specifies the following keywords that should appear for inclusion: resilience, climate change,, disasters, and disaster. This search query1 resulted in 446 articles in total.\nLearning from the experimental search exercise, it was difficult to determine if an article was truly a review article or not by simply scanning from the title, abstract and keywords. It was interesting to point out that even though the filter for review articles was switched on, there were still a myriad of articles that were not review articles to begin with. To further simplify the process, an additional line2 in the search query was appended, where it only includes articles that mentions “review”, “overview”, or “survey” in either title, abstract, or keyword. This additional exclusion resulted in 341 articles awaiting to be screened.\nFollowing the screening of 341 articles, 256 articles were removed due to not being in scope with this paper. The main reasons for removing the articles was that the articles focused on sustainability, nature (such as forests or lakes), governance, health, particular species (such as beetles or plants), technology, etc. Furthering the search of"
+  },
+  {
+    "objectID": "index.html#results",
+    "href": "index.html#results",
+    "title": "Write Up",
+    "section": "4 Results",
+    "text": "4 Results\n\n4.1 Resilience Definitions"
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Write Up",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\n( TITLE-ABS-KEY ( “soci” OR ”commun” OR “neighbour” OR ”urban” OR “econom” OR ”financi” OR “infrastruct” OR ”disast” OR “climate” ) AND TITLE-ABS-KEY ( “resilience” ) AND NOT TITLE-ABS-KEY ( “covid” OR “corona” OR “COVID-19” OR “agri” OR ”supply chain” OR ”agro” OR “land” OR “education” OR “migration” OR “sport” OR “war” OR “coral” OR “farm” ) AND NOT TITLE ( ”politics” OR ”policy” OR ”ecosystem” OR ”forest” OR ”worker” OR ”governance” OR ”river” OR ”ecolo” OR “biodiversity” OR “institution*” ) ) AND ( LIMIT-TO ( SRCTYPE , “j” ) ) AND ( LIMIT-TO ( DOCTYPE , “re” ) ) AND ( EXCLUDE ( SUBJAREA , “MEDI” ) OR EXCLUDE ( SUBJAREA , “AGRI” ) OR EXCLUDE ( SUBJAREA , “PSYC” ) OR EXCLUDE ( SUBJAREA , “BIOC” ) OR EXCLUDE ( SUBJAREA , “COMP” ) OR EXCLUDE ( SUBJAREA , “NEUR” ) OR EXCLUDE ( SUBJAREA , “NURS” ) OR EXCLUDE ( SUBJAREA , “IMMU” ) OR EXCLUDE ( SUBJAREA , “CENG” ) OR EXCLUDE ( SUBJAREA , “HEAL” ) OR EXCLUDE ( SUBJAREA , “PHYS” ) OR EXCLUDE ( SUBJAREA , “CHEM” ) OR EXCLUDE ( SUBJAREA , “PHAR” ) OR EXCLUDE ( SUBJAREA , “VETE” ) OR EXCLUDE ( SUBJAREA , “DENT” ) OR EXCLUDE ( SUBJAREA , “ARTS” ) OR EXCLUDE ( SUBJAREA , “BUSI” ) OR EXCLUDE ( SUBJAREA , “MATH” ) OR EXCLUDE ( SUBJAREA , “MATE” ) ) AND ( LIMIT-TO ( LANGUAGE , “English” ) ) AND ( LIMIT-TO ( EXACTKEYWORD , “Resilience” ) OR LIMIT-TO ( EXACTKEYWORD , “Climate Change” ) OR LIMIT-TO ( EXACTKEYWORD , “Disasters” ) OR LIMIT-TO ( EXACTKEYWORD , “Disaster” ) )↩︎\nAND TITLE-ABS-KEY ( “review” OR “overview” OR “survey” )↩︎"
+  },
+  {
+    "objectID": "Example Scripts/authoring.html",
+    "href": "Example Scripts/authoring.html",
+    "title": "Housing Prices",
+    "section": "",
+    "text": "In this analysis, we build a model predicting sale prices of houses based on data on houses that were sold in the Duke Forest neighborhood of Durham, NC around November 2020. Let’s start by loading the packages we’ll use for the analysis.\n\nlibrary(openintro)  # for data\nlibrary(tidyverse)  # for data wrangling and visualization\nlibrary(knitr)      # for tables\nlibrary(broom)      # for model summary\n\nWe present the results of exploratory data analysis in Section 2 and the regression model in Section 3."
+  },
+  {
+    "objectID": "Example Scripts/authoring.html#introduction",
+    "href": "Example Scripts/authoring.html#introduction",
+    "title": "Housing Prices",
+    "section": "",
+    "text": "In this analysis, we build a model predicting sale prices of houses based on data on houses that were sold in the Duke Forest neighborhood of Durham, NC around November 2020. Let’s start by loading the packages we’ll use for the analysis.\n\nlibrary(openintro)  # for data\nlibrary(tidyverse)  # for data wrangling and visualization\nlibrary(knitr)      # for tables\nlibrary(broom)      # for model summary\n\nWe present the results of exploratory data analysis in Section 2 and the regression model in Section 3."
+  },
+  {
+    "objectID": "Example Scripts/authoring.html#sec-eda",
+    "href": "Example Scripts/authoring.html#sec-eda",
+    "title": "Housing Prices",
+    "section": "Exploratory data analysis",
+    "text": "Exploratory data analysis\nThe data contains 98 houses. As part of the exploratory analysis let’s visualize and summarize the relationship between areas and prices of these houses.\n\nData visualization\nFigure 1 shows two histograms displaying the distributions of price and area individually.\n\nggplot(duke_forest, aes(x = price)) +\n  geom_histogram(binwidth = 50000) +\n  labs(title = \"Histogram of prices\")\n\nggplot(duke_forest, aes(x = area)) +\n  geom_histogram(binwidth = 250) +\n  labs(title = \"Histogram of areas\")\n\n\n\n\n\n\n\n(a) Histogram of prices\n\n\n\n\n\n\n\n(b) Histogram of areas\n\n\n\n\nFigure 1: Histograms of individual variables\n\n\n\nFigure 2 displays the relationship between these two variables in a scatterplot.\n\nggplot(duke_forest, aes(x = area, y = price)) +\n  geom_point() +\n  labs(title = \"Price and area of houses in Duke Forest\")\n\n\n\n\nFigure 2: Scatterplot of price vs. area of houses in Duke Forest\n\n\n\n\n\n\nSummary statistics\nTable 1 displays basic summary statistics for these two variables.\n\nduke_forest %&gt;%\n  summarise(\n    `Median price` = median(price),\n    `IQR price` = IQR(price),\n    `Median area` = median(area),\n    `IQR area` = IQR(area),\n    `Correlation, r` = cor(price, area)\n    ) %&gt;%\n  kable(digits = c(0, 0, 0, 0, 2))\n\n\n\nTable 1: Summary statistics for price and area of houses in Duke Forest\n\n\nMedian price\nIQR price\nMedian area\nIQR area\nCorrelation, r\n\n\n\n\n540000\n193125\n2623\n1121\n0.67"
+  },
+  {
+    "objectID": "Example Scripts/authoring.html#sec-model",
+    "href": "Example Scripts/authoring.html#sec-model",
+    "title": "Housing Prices",
+    "section": "Modeling",
+    "text": "Modeling\nWe can fit a simple linear regression model of the form shown in ?@eq-slr.\n[ADD EQUATION HERE]\nTable 2 shows the regression output for this model.\n\nprice_fit &lt;- lm(price ~ area, data = duke_forest)\n  \nprice_fit %&gt;%\n  tidy() %&gt;%\n  kable(digits = c(0, 0, 2, 2, 2))\n\n\n\nTable 2: Linear regression model for predicting price from area\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\n\n\n\n\n(Intercept)\n116652\n53302.46\n2.19\n0.03\n\n\narea\n159\n18.17\n8.78\n0.00"
+  },
+  {
+    "objectID": "Example Scripts/Quarto Example.html#quarto",
+    "href": "Example Scripts/Quarto Example.html#quarto",
+    "title": "Penguins, meet Quarto!",
+    "section": "Quarto",
+    "text": "Quarto\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "Example Scripts/Quarto Example.html#running-code",
+    "href": "Example Scripts/Quarto Example.html#running-code",
+    "title": "Penguins, meet Quarto!",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
+  },
+  {
+    "objectID": "Example Scripts/computations.html",
+    "href": "Example Scripts/computations.html",
+    "title": "Quarto Computations",
+    "section": "",
+    "text": "This dataset contains a subset of the fuel economy data from the EPA. Specifically, we use the mpg dataset from the ggplot2 package.\nThe visualization below shows a positive, strong, and linear relationship between the city and highway mileage of these cars. Additionally, mileage is higher for cars with fewer cylinders.\n\nggplot(mpg, aes(x = hwy, y = cty, color = cyl)) +\n  geom_point(alpha = 0.5, size = 2) +\n  scale_color_viridis_c() +\n  theme_minimal()"
+  },
+  {
+    "objectID": "Example Scripts/hello.html",
+    "href": "Example Scripts/hello.html",
+    "title": "Hello, Quarto",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "Example Scripts/hello.html#meet-quarto",
+    "href": "Example Scripts/hello.html#meet-quarto",
+    "title": "Hello, Quarto",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "Example Scripts/hello.html#meet-the-penguins",
+    "href": "Example Scripts/hello.html#meet-the-penguins",
+    "title": "Hello, Quarto",
+    "section": "Meet the penguins",
+    "text": "Meet the penguins\n\nThe penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  }
+]

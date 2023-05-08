@@ -1,0 +1,19 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Umbrella Review of Resilience Measurement"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Write Up
+
+format:
+  html:
+    theme: minty
+    css: styles.css
+    toc: true
+
+
+
