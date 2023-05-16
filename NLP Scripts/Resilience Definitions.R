@@ -2,6 +2,10 @@
 
 #### Setting Up ####
 
+# Remove unnecessary objects in the environment
+rm(list = ls())
+rm(list = ls(all.names = TRUE))
+
 # Load required packages
 library(tm)
 library(googledrive)
@@ -11,7 +15,8 @@ library(tidyr) # data manipulation
 library(tidytext)
 library(tokenizers)
 library(wordcloud)
-library(textstem) 
+library(textstem)
+library(ggplot2)
 
 # Load data through Google Sheets
 library(googlesheets4)
@@ -38,7 +43,6 @@ def_corpus<- tm_map(def_corpus, removePunctuation)
 ## remove numbers
 def_corpus<- tm_map(def_corpus, removeNumbers)
 
-
 f <- content_transformer(function(x, pattern) gsub(pattern, "", x))
 def_corpus <- tm_map(def_corpus, f, 'http\\S+\\s*') # remove URLs
 def_corpus <- tm_map(def_corpus, f, '#\\S+') # remove hashtags
@@ -52,9 +56,19 @@ def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces
 def_corpus<- tm_map(def_corpus, removeWords, stopwords("SMART"))
 def_corpus = tm_map(def_corpus, removeWords, "resilience")
 
+# Running it all again just to be sure
+f <- content_transformer(function(x, pattern) gsub(pattern, "", x))
+def_corpus <- tm_map(def_corpus, f, 'http\\S+\\s*') # remove URLs
+def_corpus <- tm_map(def_corpus, f, '#\\S+') # remove hashtags
+def_corpus <- tm_map(def_corpus, f, '[[:cntrl:]]') # remove controls and special characters
+def_corpus <- tm_map(def_corpus, f, "^[[:space:]]*") # remove leading whitespaces
+def_corpus <- tm_map(def_corpus, f, "[[:space:]]*$") # remove trailing whitespaces 
+g <- content_transformer(function(x, pattern) gsub(pattern, " ", x)) 
+def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces 
+
 library(textstem)
 def_corpus<- tm_map(def_corpus, PlainTextDocument)
-def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_words))
+def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_strings))
 
 # create term document matrix
 tdm <- TermDocumentMatrix(def_corpus, control = list(wordlengths = c(1,Inf)))
@@ -66,8 +80,7 @@ term_freq <- subset(term_freq, term_freq>=5)
 dfm <- data.frame(term = names(term_freq), freq = term_freq)
 
 # plot word frequency
-library(ggplot2)
-df_plot <- dfm %>% top_n(25)
+df_plot <- dfm %>% top_n(20)
 # Plot word frequency
 ggplot(df_plot, aes(x = reorder(term, +freq), y = freq, fill = freq)) + geom_bar(stat = "identity")+ scale_colour_gradientn(colors = terrain.colors(10))+ xlab("Terms")+ ylab("Count")+coord_flip()
 
@@ -124,9 +137,18 @@ def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces
 def_corpus<- tm_map(def_corpus, removeWords, stopwords("SMART"))
 def_corpus = tm_map(def_corpus, removeWords, "resilience")
 
+f <- content_transformer(function(x, pattern) gsub(pattern, "", x))
+def_corpus <- tm_map(def_corpus, f, 'http\\S+\\s*') # remove URLs
+def_corpus <- tm_map(def_corpus, f, '#\\S+') # remove hashtags
+def_corpus <- tm_map(def_corpus, f, '[[:cntrl:]]') # remove controls and special characters
+def_corpus <- tm_map(def_corpus, f, "^[[:space:]]*") # remove leading whitespaces
+def_corpus <- tm_map(def_corpus, f, "[[:space:]]*$") # remove trailing whitespaces 
+g <- content_transformer(function(x, pattern) gsub(pattern, " ", x)) 
+def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces 
+
 library(textstem)
 def_corpus<- tm_map(def_corpus, PlainTextDocument)
-def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_words))
+def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_strings))
 
 # create term document matrix
 tdm <- TermDocumentMatrix(def_corpus, control = list(wordlengths = c(1,Inf)))
@@ -195,7 +217,16 @@ def_corpus = tm_map(def_corpus, removeWords, "resilience")
 
 library(textstem)
 def_corpus<- tm_map(def_corpus, PlainTextDocument)
-def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_words))
+def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_strings))
+
+f <- content_transformer(function(x, pattern) gsub(pattern, "", x))
+def_corpus <- tm_map(def_corpus, f, 'http\\S+\\s*') # remove URLs
+def_corpus <- tm_map(def_corpus, f, '#\\S+') # remove hashtags
+def_corpus <- tm_map(def_corpus, f, '[[:cntrl:]]') # remove controls and special characters
+def_corpus <- tm_map(def_corpus, f, "^[[:space:]]*") # remove leading whitespaces
+def_corpus <- tm_map(def_corpus, f, "[[:space:]]*$") # remove trailing whitespaces 
+g <- content_transformer(function(x, pattern) gsub(pattern, " ", x)) 
+def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces 
 
 # create term document matrix
 tdm <- TermDocumentMatrix(def_corpus, control = list(wordlengths = c(1,Inf)))
