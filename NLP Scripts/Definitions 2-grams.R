@@ -1,9 +1,9 @@
 # Text Processing of Resilience Definitions
+# 2-grams edition
 
 #### Setting Up ####
 
 # Remove unnecessary objects in the environment
-rm(list = ls())
 rm(list = ls(all.names = TRUE))
 
 # Load required packages
@@ -17,12 +17,13 @@ library(tokenizers)
 library(wordcloud)
 library(textstem)
 library(ggplot2)
+library(RWeka)
 
 # Load data through Google Sheets
 library(googlesheets4)
 df_wide = read_sheet("https://docs.google.com/spreadsheets/d/1IPjq6CMAEd6HLEo0rBig30nWnEE7vL6d2cskd_bDODQ/edit?usp=sharing", sheet="Definitions")
 
-df = gather(df_wide,type,definitions,c(`Def 0`:`Def 23`)) # reshape the data into a long format
+df = gather(df_wide,type,definitions,c(`Def 0`:`Def 35`)) # reshape the data into a long format
 df = df %>% drop_na() #drop empty rows
 # rename colnames to match the requirements of dataframe source to create corpus
 df <- df %>% rename(doc_id = ID, text = definitions)
@@ -63,6 +64,7 @@ def_corpus <- tm_map(def_corpus, f, '#\\S+') # remove hashtags
 def_corpus <- tm_map(def_corpus, f, '[[:cntrl:]]') # remove controls and special characters
 def_corpus <- tm_map(def_corpus, f, "^[[:space:]]*") # remove leading whitespaces
 def_corpus <- tm_map(def_corpus, f, "[[:space:]]*$") # remove trailing whitespaces 
+def_corpus <- tm_map(def_corpus, f, "'")
 g <- content_transformer(function(x, pattern) gsub(pattern, " ", x)) 
 def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces 
 
@@ -70,10 +72,10 @@ library(textstem)
 def_corpus<- tm_map(def_corpus, PlainTextDocument)
 def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_strings))
 
-# create term document matrix
-tdm <- TermDocumentMatrix(def_corpus, control = list(wordlengths = c(1,Inf)))
-# inspect frequent words
-freq_terms <- findFreqTerms(tdm, lowfreq=50)
+BigramTokenizer <- function(x) NGramTokenizer(x, Weka_control(min = 2, max = 2))
+tdm <- TermDocumentMatrix(def_corpus, control = list(tokenize = BigramTokenizer))
+
+#freq_terms <- findFreqTerms(tdm, lowfreq=50)
 #View(freq_terms)
 term_freq <- rowSums(as.matrix(tdm))
 term_freq <- subset(term_freq, term_freq>=5)
@@ -82,13 +84,15 @@ dfm <- data.frame(term = names(term_freq), freq = term_freq)
 # plot word frequency
 df_plot <- dfm %>% top_n(20)
 # Plot word frequency
-ggplot(df_plot, aes(x = reorder(term, +freq), y = freq, fill = freq)) + geom_bar(stat = "identity")+ scale_colour_gradientn(colors = terrain.colors(10))+ xlab("Terms")+ ylab("Count")+coord_flip()
+ggplot(df_plot) + geom_bar(aes(reorder(term,freq),freq, fill = freq), stat = 'identity') + 
+  scale_fill_viridis_c() +
+  theme_minimal() + 
+  theme() + labs(x="Terms", y="Count", fill="Frequency") + coord_flip() 
 
 # Word Cloud 
 library(wordcloud2)
-m <- as.matrix(tdm)
-# calculate the frequency of words as sort it by frequency
-word_freq<- sort(rowSums(m), decreasing = T)
+# m <- as.matrix(tdm) # calculate the frequency of words as sort it by frequency
+# word_freq<- sort(rowSums(m), decreasing = T)
 
 library(wesanderson)
 mix_palette = rep(wes_palette("FantasticFox1",n=5),round(nrow(dfm)/5)+nrow(dfm)%%5)
@@ -151,39 +155,32 @@ def_corpus<- tm_map(def_corpus, PlainTextDocument)
 def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_strings))
 
 # create term document matrix
-tdm <- TermDocumentMatrix(def_corpus, control = list(wordlengths = c(1,Inf)))
+tdm <- TermDocumentMatrix(def_corpus, control = list(tokenize = BigramTokenizer))
+
 # inspect frequent words
-freq_terms <- findFreqTerms(tdm, lowfreq=5)
+#freq_terms <- findFreqTerms(tdm, lowfreq=5)
 # View(freq_terms)
+
 term_freq <- rowSums(as.matrix(tdm))
-term_freq <- subset(term_freq, term_freq>=5)
+term_freq <- subset(term_freq, term_freq>=3)
 dfm <- data.frame(term = names(term_freq), freq = term_freq)
 
 # plot word frequency
 df_plot <- dfm %>% top_n(25)
 # Plot word frequency
-ggplot(df_plot, aes(x = reorder(term, +freq), y = freq, fill = freq)) + geom_bar(stat = "identity")+ scale_colour_gradientn(colors = terrain.colors(10))+ xlab("Terms")+ ylab("Count")+coord_flip()+scale_fill_gradient(name="Frequency")
+ggplot(df_plot) + geom_bar(aes(reorder(term,freq),freq, fill = freq), stat = 'identity') + 
+  scale_fill_viridis_c() +
+  theme_minimal() + 
+  theme() + labs(title = "Infrastructure Resilience Bigrams",x="Terms", y="Count", fill="Frequency") + coord_flip() 
 
 # Word Cloud 
 library(wesanderson)
 infra_palette = rep(wes_palette("Cavalcanti1",n=5),round(nrow(dfm)/5)+nrow(dfm)%%5)
 
-m <- as.matrix(tdm)
+#m <- as.matrix(tdm)
 # calculate the frequency of words as sort it by frequency
-word_freq<- sort(rowSums(m), decreasing = T)
-infra_cloud = wordcloud2(dfm, color = infra_palette, backgroundColor = "white")
-
-library(htmlwidgets) 
-saveWidget(infra_cloud,"1.html",selfcontained = F)
-webshot::webshot("1.html","1.png",vwidth = 1992, vheight = 1744, delay =10)
-
-library(htmlwidgets) 
-#install.packages("webshot")
-#webshot::install_phantomjs()
-library(wordcloud2)
-hw <- wordcloud2(demoFreq,size = 3)
-saveWidget(hw,"1.html",selfcontained = F)
-webshot::webshot("1.html","1.png",vwidth = 1992, vheight = 1744, delay =10)
+#word_freq<- sort(rowSums(m), decreasing = T)
+wordcloud2(dfm, color = infra_palette, backgroundColor = "white")
 
 #### Organization Paper ####
 df_wide = read_sheet("https://docs.google.com/spreadsheets/d/1IPjq6CMAEd6HLEo0rBig30nWnEE7vL6d2cskd_bDODQ/edit?usp=sharing", sheet="Definitions")
@@ -254,10 +251,8 @@ g <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
 def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces 
 
 # create term document matrix
-tdm <- TermDocumentMatrix(def_corpus, control = list(wordlengths = c(1,Inf)))
-# inspect frequent words
-freq_terms <- findFreqTerms(tdm)
-# View(freq_terms)
+tdm <- TermDocumentMatrix(def_corpus, control = list(tokenize = BigramTokenizer))
+
 term_freq <- rowSums(as.matrix(tdm))
 term_freq <- subset(term_freq, term_freq>=2)
 dfm <- data.frame(term = names(term_freq), freq = term_freq)
@@ -265,26 +260,18 @@ dfm <- data.frame(term = names(term_freq), freq = term_freq)
 # plot word frequency
 df_plot <- dfm %>% top_n(25)
 # Plot word frequency
-ggplot(df_plot, aes(x = reorder(term, +freq), y = freq, fill = freq)) + geom_bar(stat = "identity")+ scale_colour_gradientn(colors = terrain.colors(10))+ xlab("Terms")+ ylab("Count")+coord_flip()+scale_fill_gradient(name="Frequency")
+ggplot(df_plot) + geom_bar(aes(reorder(term,freq),freq, fill = freq), stat = 'identity') + 
+  scale_fill_viridis_c() +
+  theme_minimal() + 
+  theme() + labs(title = "Organizational Resilience Bigrams",x="Terms", y="Count", fill="Frequency") + coord_flip() 
 
 # Word Cloud
-m <- as.matrix(tdm)
+#m <- as.matrix(tdm)
 # calculate the frequency of words as sort it by frequency
-word_freq<- sort(rowSums(m), decreasing = T)
+#word_freq<- sort(rowSums(m), decreasing = T)
 
 organ_palette = rep(wes_palette("Darjeeling1",n=5),round(nrow(dfm)/5)+nrow(dfm)%%5)
-organ_cloud = wordcloud2(dfm, color = organ_palette, backgroundColor = "white")
-
-saveWidget(organ_cloud,"2.html",selfcontained = F)
-webshot::webshot("2.html","2.png",vwidth = 1992, vheight = 1744, delay =10)
-
-library(htmlwidgets) 
-#install.packages("webshot")
-#webshot::install_phantomjs()
-library(wordcloud2)
-hw <- wordcloud2(demoFreq,size = 3)
-saveWidget(hw,"1.html",selfcontained = F)
-webshot::webshot("1.html","1.png",vwidth = 1992, vheight = 1744, delay =10)
+wordcloud2(dfm, color = organ_palette, backgroundColor = "white")
 
 #### Community Papers ####
 df_wide = read_sheet("https://docs.google.com/spreadsheets/d/1IPjq6CMAEd6HLEo0rBig30nWnEE7vL6d2cskd_bDODQ/edit?usp=sharing", sheet="Definitions")
@@ -345,9 +332,11 @@ g <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
 def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces 
 
 # create term document matrix
-tdm <- TermDocumentMatrix(def_corpus, control = list(wordlengths = c(1,Inf)))
+tdm <- TermDocumentMatrix(def_corpus, control = list(tokenize = BigramTokenizer))
+
+
 # inspect frequent words
-freq_terms <- findFreqTerms(tdm)
+# freq_terms <- findFreqTerms(tdm)
 # View(freq_terms)
 term_freq <- rowSums(as.matrix(tdm))
 term_freq <- subset(term_freq, term_freq>=2)
@@ -356,23 +345,14 @@ dfm <- data.frame(term = names(term_freq), freq = term_freq)
 # plot word frequency
 df_plot <- dfm %>% top_n(25)
 # Plot word frequency
-ggplot(df_plot, aes(x = reorder(term, +freq), y = freq, fill = freq)) + geom_bar(stat = "identity")+ scale_colour_gradientn(colors = terrain.colors(10))+ xlab("Terms")+ ylab("Count")+coord_flip()+scale_fill_gradient(name="Frequency")
+
+ggplot(df_plot) + geom_bar(aes(reorder(term,freq),freq, fill = freq), stat = 'identity') + 
+  scale_fill_viridis_c() +
+  theme_minimal() + 
+  theme() + labs(title = "Community Resilience Bigrams",x="Terms", y="Count", fill="Frequency") + coord_flip() 
 
 # Word Cloud
-m <- as.matrix(tdm)
-# calculate the frequency of words as sort it by frequency
-word_freq<- sort(rowSums(m), decreasing = T)
+commun_palette = rep(wes_palette("Zissou1",n=5),round(nrow(dfm)/5)+nrow(dfm)%%5)
+wordcloud2(dfm, color = commun_palette, backgroundColor = "white")
 
-organ_palette = rep(wes_palette("Darjeeling1",n=5),round(nrow(dfm)/5)+nrow(dfm)%%5)
-organ_cloud = wordcloud2(dfm, color = organ_palette, backgroundColor = "white")
-
-saveWidget(organ_cloud,"2.html",selfcontained = F)
-webshot::webshot("2.html","2.png",vwidth = 1992, vheight = 1744, delay =10)
-
-library(htmlwidgets) 
-#install.packages("webshot")
-#webshot::install_phantomjs()
-library(wordcloud2)
-hw <- wordcloud2(demoFreq,size = 3)
-saveWidget(hw,"1.html",selfcontained = F)
-webshot::webshot("1.html","1.png",vwidth = 1992, vheight = 1744, delay =10)
+# dev.off()

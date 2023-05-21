@@ -108,7 +108,7 @@ The average number of authors across the 11 review articles is 3.5, with a stand
 
 ### Resilience Definitions
 
-The various definitions are scraped from each review paper. Some papers try to synthesize the definition of resilience `put some example papers here and their citation\`, and some papers will propose their own definition of resilience `example papers here`, while a paper (Cariolet) will simply use a widely cited definition. This particular sub-section aims to explore the conceptualization of social and infrastructure resilience through the various definitions mentioned using word clouds and term frequency (and maybe more?)
+The various definitions are scraped from each review paper. Some papers try to synthesize the definition of resilience `put some example papers here and their citation\`, and some papers will propose their own definition of resilience `example papers here`, while a paper (Cariolet) will simply use a widely cited definition. This particular sub-section aims to explore the conceptualization of resilience through the various definitions mentioned using word clouds and term frequency (and maybe more?)
 
 ::: {layout="[[1,1]]"}
 ![](images/Infrastructure%20Freq.png)
@@ -117,6 +117,8 @@ The various definitions are scraped from each review paper. Some papers try to s
 
 Infrastructure Resilience Definitions
 :::
+
+As one can see, the term "system" is the most frequently used term 
 
 ::: {layout="[[1,1]]"}
 ![](images/Community%20Freq.png)
