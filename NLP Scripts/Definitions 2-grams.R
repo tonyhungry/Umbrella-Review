@@ -155,6 +155,7 @@ def_corpus<- tm_map(def_corpus, PlainTextDocument)
 def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_strings))
 
 # create term document matrix
+BigramTokenizer <- function(x) NGramTokenizer(x, Weka_control(min = 2, max = 2))
 tdm <- TermDocumentMatrix(def_corpus, control = list(tokenize = BigramTokenizer))
 
 # inspect frequent words

@@ -262,7 +262,7 @@ ggplot(df_plot) + geom_bar(aes(reorder(term,freq),freq, fill = freq), stat = 'id
 
 # Word Cloud
 organ_palette = rep(wes_palette("Darjeeling1",n=5),round(nrow(dfm)/5)+nrow(dfm)%%5)
-organ_cloud = wordcloud2(dfm, color = organ_palette, backgroundColor = "white")
+wordcloud2(dfm, color = organ_palette, backgroundColor = "white")
 
 #### Community Papers ####
 df_wide = read_sheet("https://docs.google.com/spreadsheets/d/1IPjq6CMAEd6HLEo0rBig30nWnEE7vL6d2cskd_bDODQ/edit?usp=sharing", sheet="Definitions")
@@ -309,6 +309,21 @@ def_corpus = tm_map(def_corpus, removeWords, "urban")
 def_corpus = tm_map(def_corpus, removeWords, "community")
 
 library(textstem)
+def_corpus<- tm_map(def_corpus, PlainTextDocument)
+def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_strings))
+def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_words))
+
+f <- content_transformer(function(x, pattern) gsub(pattern, "", x))
+def_corpus <- tm_map(def_corpus, f, 'http\\S+\\s*') # remove URLs
+def_corpus <- tm_map(def_corpus, f, '#\\S+') # remove hashtags
+def_corpus <- tm_map(def_corpus, f, '[[:cntrl:]]') # remove controls and special characters
+def_corpus <- tm_map(def_corpus, f, "^[[:space:]]*") # remove leading whitespaces
+def_corpus <- tm_map(def_corpus, f, "[[:space:]]*$") # remove trailing whitespaces 
+g <- content_transformer(function(x, pattern) gsub(pattern, " ", x)) 
+def_corpus <- tm_map(def_corpus, g, ' +') #remove extra whitespaces 
+
+def_corpus = tm_map(def_corpus, removeWords, c("community","disaster"))
+
 def_corpus<- tm_map(def_corpus, PlainTextDocument)
 def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_strings))
 def_corpus<- tm_map(def_corpus, content_transformer(lemmatize_words))
