@@ -27,6 +27,7 @@ require(seededlda)
 
 # Chapter 2: Import Data ####
 
+# Load in pre-formatted files
 path_data <- system.file("extdata/", package = "readtext")
 dat_inaug <- read.csv(paste0(path_data, "/csv/inaugCorpus.csv")) #loads in pre-formatted files that come in a "spreadsheet format" 
 dat_dail <- readtext(paste0(path_data, "/tsv/dailsample.tsv"), text_field = "speech") # Loading in files that contains text and any associated document-level variables

@@ -1,0 +1,557 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Definition-Frequencies.R},
+  pdfauthor={tonyhung},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Definition-Frequencies.R}
+\author{tonyhung}
+\date{2023-08-11}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Definitions with Quanteda}
+
+\CommentTok{\# Setting Up \#\#\#\#}
+
+\CommentTok{\# viridis color palette coordination}
+\CommentTok{\# Community: magma}
+\CommentTok{\# Social: plasma}
+\CommentTok{\# Disaster: cividis}
+\CommentTok{\# Infrastructure: mako}
+\CommentTok{\# Urban: viridis}
+\CommentTok{\# Organization: rocket}
+\CommentTok{\# All: turbo}
+
+\CommentTok{\# Remove unnecessary objects and plots in the environment}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{(}\AttributeTok{all.names =} \ConstantTok{TRUE}\NormalTok{))}
+\FunctionTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## null device 
+##           1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{graphics.off}\NormalTok{()}
+
+\CommentTok{\# Load required packages}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.2     v readr     2.1.4
+## v forcats   1.0.0     v stringr   1.5.0
+## v ggplot2   3.4.2     v tibble    3.2.1
+## v lubridate 1.9.2     v tidyr     1.3.0
+## v purrr     1.0.1     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(googlesheets4)}
+
+\NormalTok{googlesheets4}\SpecialCharTok{::}\FunctionTok{gs4\_auth}\NormalTok{(}\AttributeTok{email =} \StringTok{"tonyhung.th@gmail.com"}\NormalTok{)}
+
+\CommentTok{\# Load data through Google Sheets}
+\NormalTok{df\_wide }\OtherTok{=} \FunctionTok{read\_sheet}\NormalTok{(}\StringTok{"https://docs.google.com/spreadsheets/d/1IPjq6CMAEd6HLEo0rBig30nWnEE7vL6d2cskd\_bDODQ/edit?usp=sharing"}\NormalTok{, }\AttributeTok{sheet=}\StringTok{"Definitions"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## v Reading from "Review Data".
+## v Range ''Definitions''.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=} \FunctionTok{gather}\NormalTok{(df\_wide,type,definitions,}\FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Def 0}\StringTok{\textasciigrave{}}\SpecialCharTok{:}\StringTok{\textasciigrave{}}\AttributeTok{Def 35}\StringTok{\textasciigrave{}}\NormalTok{)) }\CommentTok{\# reshape the data into a long format}
+\NormalTok{df }\OtherTok{=}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\CommentTok{\#drop empty rows}
+\CommentTok{\# rename colnames to match the requirements of dataframe source to create corpus}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{rename}\NormalTok{(}\AttributeTok{Doc\_id =}\NormalTok{ ID, }\AttributeTok{texts =}\NormalTok{ definitions, }\AttributeTok{Type =}\NormalTok{ type) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{relocate}\NormalTok{(texts)}
+
+\FunctionTok{library}\NormalTok{(pacman)}
+\NormalTok{pacman}\SpecialCharTok{::}\FunctionTok{p\_unload}\NormalTok{(pacman}\SpecialCharTok{::}\FunctionTok{p\_loaded}\NormalTok{(), }\AttributeTok{character.only =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The following packages have been unloaded:
+## pacman, googlesheets4, lubridate, forcats, stringr, dplyr, purrr, readr, tidyr, tibble, ggplot2, tidyverse
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{normal\_words }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"resilien*"}\NormalTok{,}\StringTok{"transport*"}\NormalTok{,}\StringTok{"define*"}\NormalTok{,}\StringTok{"refer*"}\NormalTok{,}\StringTok{"water"}\NormalTok{)}
+
+\CommentTok{\# All Definitions \#\#\#\#}
+
+\CommentTok{\# Load packages}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Package version: 3.3.1
+## Unicode version: 14.0
+## ICU version: 71.1
+## Parallel computing: 4 of 4 threads used.
+## See https://quanteda.io for tutorials and examples.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(quanteda.textmodels)}
+\FunctionTok{library}\NormalTok{(quanteda.textstats)}
+\FunctionTok{library}\NormalTok{(quanteda.textplots)}
+\FunctionTok{library}\NormalTok{(readtext)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'readtext'
+## 
+## The following object is masked from 'package:quanteda':
+## 
+##     texts
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(quanteda.corpora)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{corp }\OtherTok{=} \FunctionTok{corpus}\NormalTok{(df,}\AttributeTok{text\_field =} \StringTok{"texts"}\NormalTok{) }\CommentTok{\# create corpus}
+
+\DocumentationTok{\#\# 1{-}gram \#\#\#\#}
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(corp, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# makes everything lower case}
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# removes stopwords}
+  \FunctionTok{tokens\_remove}\NormalTok{(normal\_words) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# removes common words that are specific to this topic}
+  \FunctionTok{tokens\_replace}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{token, }\AttributeTok{replacement =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{lemma) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# lemmatize words}
+  \FunctionTok{tokens\_keep}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"\^{}[a{-}zA{-}Z]+$"}\NormalTok{, }\AttributeTok{valuetype =} \StringTok{"regex"}\NormalTok{) }\CommentTok{\# an additional line to make sure that the tokens are really regular words.}
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"All Definitions, Top 10, 1{-}gram"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"All Resilience Definition Word Cloud, 1{-}gram"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =} \FunctionTok{rev}\NormalTok{(viridis}\SpecialCharTok{::}\FunctionTok{turbo}\NormalTok{(}\DecValTok{15}\NormalTok{)))}
+
+\DocumentationTok{\#\# 2{-}gram \#\#\#\#}
+
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(corp, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_ngrams}\NormalTok{(}\AttributeTok{n=}\DecValTok{2}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(normal\_words) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_replace}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{token, }\AttributeTok{replacement =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{lemma)}
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"All Definitions, Top 10, 2{-}gram"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"All Resilience Definition Word Cloud, 2{-}gram"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =}\NormalTok{ viridis}\SpecialCharTok{::}\FunctionTok{turbo}\NormalTok{(}\DecValTok{15}\NormalTok{))}
+
+\DocumentationTok{\#\# 1+2{-}gram \#\#\#\#}
+
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(corp, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_ngrams}\NormalTok{(}\AttributeTok{n=}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_wordstem}\NormalTok{() }
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"All Definitions, Top 10, 1+2{-}grams"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"All Resilience Definition Word Cloud, 1+2{-}grams"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =}\NormalTok{ viridis}\SpecialCharTok{::}\FunctionTok{turbo}\NormalTok{(}\DecValTok{15}\NormalTok{))}
+
+\CommentTok{\# From all these wordclouds, the ones that really makes sense is the 1{-}gram. }
+
+\CommentTok{\# Infrastructure Definitions \#\#\#\#}
+\NormalTok{infra }\OtherTok{=} \FunctionTok{corpus\_subset}\NormalTok{(corp, Classification }\SpecialCharTok{==} \StringTok{"Infrastructure"}\NormalTok{)}
+
+\DocumentationTok{\#\# 1{-}gram }\AlertTok{\#\#\#}
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(infra, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(normal\_words) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_replace}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{token, }\AttributeTok{replacement =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{lemma) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_keep}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"\^{}[a{-}zA{-}Z]+$"}\NormalTok{, }\AttributeTok{valuetype =} \StringTok{"regex"}\NormalTok{)}
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Infrastructure Resilience Definitions, Top 10 Word Occurences"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"Infrastructure Resilience Definition Word Cloud"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =} \FunctionTok{rev}\NormalTok{(viridis}\SpecialCharTok{::}\FunctionTok{mako}\NormalTok{(}\DecValTok{15}\NormalTok{)))}
+
+\CommentTok{\# Community Definitions \#\#\#\#}
+\NormalTok{commun }\OtherTok{=} \FunctionTok{corpus\_subset}\NormalTok{(corp, Classification }\SpecialCharTok{==} \StringTok{"Community"}\NormalTok{)}
+
+\DocumentationTok{\#\# 1{-}gram }\AlertTok{\#\#\#}
+
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(commun, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(normal\_words) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_replace}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{token, }\AttributeTok{replacement =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{lemma) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\StringTok{"community"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_keep}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"\^{}[a{-}zA{-}Z]+$"}\NormalTok{, }\AttributeTok{valuetype =} \StringTok{"regex"}\NormalTok{)}
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Community Resilience Definitions, Top 10 Word Occurences"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"Community Resilience Definition Word Cloud"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =} \FunctionTok{rev}\NormalTok{(viridis}\SpecialCharTok{::}\FunctionTok{magma}\NormalTok{(}\DecValTok{15}\NormalTok{)))}
+
+\CommentTok{\# Urban Definitions \#\#\#\#}
+\NormalTok{urban }\OtherTok{=} \FunctionTok{corpus\_subset}\NormalTok{(corp, Classification }\SpecialCharTok{==} \StringTok{"Urban"}\NormalTok{)}
+
+\DocumentationTok{\#\# 1{-}gram }\AlertTok{\#\#\#}
+
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(urban, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(normal\_words) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_replace}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{token, }\AttributeTok{replacement =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{lemma) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\StringTok{"urban"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_keep}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"\^{}[a{-}zA{-}Z]+$"}\NormalTok{, }\AttributeTok{valuetype =} \StringTok{"regex"}\NormalTok{)}
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Urban Resilience Definitions, Top 10 Word Occurences"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"Urban Resilience Definition Word Cloud"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =} \FunctionTok{rev}\NormalTok{(viridis}\SpecialCharTok{::}\FunctionTok{viridis}\NormalTok{(}\DecValTok{15}\NormalTok{)))}
+
+\CommentTok{\# Disaster Definitions \#\#\#\#}
+\NormalTok{disas }\OtherTok{=} \FunctionTok{corpus\_subset}\NormalTok{(corp, Classification }\SpecialCharTok{==} \StringTok{"Disaster"}\NormalTok{)}
+
+\DocumentationTok{\#\# 1{-}gram }\AlertTok{\#\#\#}
+
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(disas, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(normal\_words) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_replace}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{token, }\AttributeTok{replacement =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{lemma) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\StringTok{"disaster*"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_keep}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"\^{}[a{-}zA{-}Z]+$"}\NormalTok{, }\AttributeTok{valuetype =} \StringTok{"regex"}\NormalTok{)}
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Disaster Resilience Definitions, Top 10 Word Occurences"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"Disaster Resilience Definition Word Cloud"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =} \FunctionTok{rev}\NormalTok{(viridis}\SpecialCharTok{::}\FunctionTok{cividis}\NormalTok{(}\DecValTok{15}\NormalTok{)))}
+
+\CommentTok{\# Organization Definitions \#\#\#\#}
+\NormalTok{organ }\OtherTok{=} \FunctionTok{corpus\_subset}\NormalTok{(corp, Classification }\SpecialCharTok{==} \StringTok{"Organization"}\NormalTok{)}
+
+\DocumentationTok{\#\# 1{-}gram }\AlertTok{\#\#\#}
+
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(organ, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(normal\_words) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_replace}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{token, }\AttributeTok{replacement =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{lemma) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"organization*"}\NormalTok{,}\StringTok{"organisation*"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_keep}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"\^{}[a{-}zA{-}Z]+$"}\NormalTok{, }\AttributeTok{valuetype =} \StringTok{"regex"}\NormalTok{)}
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Organization Resilience Definitions, Top 10 Word Occurences"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"Organizational Resilience Definition Word Cloud"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =} \FunctionTok{rev}\NormalTok{(viridis}\SpecialCharTok{::}\FunctionTok{rocket}\NormalTok{(}\DecValTok{15}\NormalTok{)))}
+
+\CommentTok{\# Social Definitions \#\#\#\#}
+\NormalTok{soci }\OtherTok{=} \FunctionTok{corpus\_subset}\NormalTok{(corp, Classification }\SpecialCharTok{==} \StringTok{"Social"}\NormalTok{)}
+
+\DocumentationTok{\#\# 1{-}gram }\AlertTok{\#\#\#}
+
+\NormalTok{def\_tok }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(soci, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_tolower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(normal\_words) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_replace}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{token, }\AttributeTok{replacement =}\NormalTok{ lexicon}\SpecialCharTok{::}\NormalTok{hash\_lemmas}\SpecialCharTok{$}\NormalTok{lemma) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_remove}\NormalTok{(}\StringTok{"social"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tokens\_keep}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"\^{}[a{-}zA{-}Z]+$"}\NormalTok{, }\AttributeTok{valuetype =} \StringTok{"regex"}\NormalTok{)}
+
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(def\_tok)}
+
+\NormalTok{dfmat }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(feature, frequency), }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Words"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Social Resilience Definitions, Top 10 Word Occurences"}\NormalTok{)}
+
+\FunctionTok{layout}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{), }\AttributeTok{heights=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{text}\NormalTok{(}\AttributeTok{x=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{y=}\FloatTok{0.5}\NormalTok{, }\StringTok{"Social Resilience Definition Word Cloud"}\NormalTok{)}
+\FunctionTok{textplot\_wordcloud}\NormalTok{(dfmat, }\AttributeTok{max\_words =} \DecValTok{100}\NormalTok{, }\AttributeTok{color =} \FunctionTok{rev}\NormalTok{(viridis}\SpecialCharTok{::}\FunctionTok{plasma}\NormalTok{(}\DecValTok{15}\NormalTok{)), }\AttributeTok{main=}\StringTok{"Title"}\NormalTok{)}
+
+\CommentTok{\# Similarity Comparison using H Clust \#\#\#\#}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.2     v readr     2.1.4
+## v forcats   1.0.0     v stringr   1.5.0
+## v lubridate 1.9.2     v tibble    3.2.1
+## v purrr     1.0.1     v tidyr     1.3.0
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=}\NormalTok{ df\_wide }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{unite}\NormalTok{(}\StringTok{"definitions"}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Def 0}\StringTok{\textasciigrave{}}\SpecialCharTok{:}\StringTok{\textasciigrave{}}\AttributeTok{Def 35}\StringTok{\textasciigrave{}}\NormalTok{),}\AttributeTok{na.rm=}\NormalTok{T) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Doc\_id =}\NormalTok{ ID, }\AttributeTok{texts =}\NormalTok{ definitions) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{relocate}\NormalTok{(texts) }\CommentTok{\# This is to collapse all of the definitions into one column.}
+
+\NormalTok{corp\_cat }\OtherTok{=} \FunctionTok{corpus}\NormalTok{(df,}\AttributeTok{text\_field =} \StringTok{"texts"}\NormalTok{) }\CommentTok{\# create corpus}
+
+\NormalTok{toks }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(corp\_cat, }\AttributeTok{remove\_punct=}\NormalTok{T)}
+\NormalTok{dfmat }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(toks, }\AttributeTok{remove =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"en"}\NormalTok{, }\AttributeTok{source =} \StringTok{"smart"}\NormalTok{), }\AttributeTok{tolower=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: 'remove' is deprecated; use dfm_remove() instead
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{docnames}\NormalTok{(dfmat) }\OtherTok{=} \FunctionTok{docvars}\NormalTok{(dfmat)}\SpecialCharTok{$}\NormalTok{Abbreviation}
+\NormalTok{tstat\_dist }\OtherTok{\textless{}{-}} \FunctionTok{as.dist}\NormalTok{(}\FunctionTok{textstat\_dist}\NormalTok{(dfmat))}
+\NormalTok{clust }\OtherTok{\textless{}{-}} \FunctionTok{hclust}\NormalTok{(tstat\_dist)}
+\CommentTok{\# plot(clust, xlab = "Distance", ylab = NULL)}
+
+\FunctionTok{library}\NormalTok{(ggdendro)}
+\NormalTok{ddata\_x }\OtherTok{\textless{}{-}} \FunctionTok{dendro\_data}\NormalTok{(clust)}
+\NormalTok{labs }\OtherTok{\textless{}{-}} \FunctionTok{label}\NormalTok{(ddata\_x)}
+\NormalTok{labs }\OtherTok{=}\NormalTok{ labs }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{left\_join}\NormalTok{(df,}\AttributeTok{by =} \FunctionTok{join\_by}\NormalTok{(label }\SpecialCharTok{==}\NormalTok{ Abbreviation)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"texts"}\NormalTok{, }\StringTok{"Doc\_id"}\NormalTok{,}\StringTok{"Article Name"}\NormalTok{))}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{segment}\NormalTok{(ddata\_x),}\AttributeTok{horiz=}\NormalTok{T) }\SpecialCharTok{+}
+  \FunctionTok{geom\_segment}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{x, }\AttributeTok{x=}\NormalTok{y, }\AttributeTok{yend=}\NormalTok{xend, }\AttributeTok{xend=}\NormalTok{yend)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data=}\FunctionTok{label}\NormalTok{(ddata\_x), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{label=}\NormalTok{label, }\AttributeTok{y=}\NormalTok{x, }\AttributeTok{x=}\NormalTok{y, }\AttributeTok{colour=}\NormalTok{labs}\SpecialCharTok{$}\NormalTok{Classification)) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Definition Similarity"}\NormalTok{)}
+
+\CommentTok{\# I know this is an ugly picture, but it\textquotesingle{}s easier to see which ones are which category. It really is a mix of results. It\textquotesingle{}s interesting to see the definitions for urban resilience is rather close to community resilience and the other urban definition is close infrastructure resilience. Organizational resilience is the most removed. Not surprising, especially if one looks at the kind of definition that was used. }
+
+\FunctionTok{ggdendrogram}\NormalTok{(clust, }\AttributeTok{rotate=}\NormalTok{T) }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Definition Similarity"}\NormalTok{)}
+\CommentTok{\# Will this plot instead.}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
