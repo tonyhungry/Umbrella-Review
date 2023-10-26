@@ -23,14 +23,14 @@ M <- convert2df(file="savedrecs.txt", dbsource="wos",format="plaintext")
 
 # Main bibliometric results of the articles
 results = biblioAnalysis(M)
-findings = summary(results,verbose=T) 
+summary(results)
 
 # Most cited references
 CR = citations(M,field="article",sep=";")
-a=data.frame(cbind(CR$Cited[1:50])) # top 20 most cited references
+a=data.frame(cbind(CR$Cited[1:10])) # top 20 most cited references
 colnames(a)[1] = "Number of Times Cited"
 a %>%
-  kbl(caption = "Top 20 Most Cited References") %>%
+  kbl(caption = "Top 10 Most Cited References") %>%
   kable_classic(full_width = F, html_font = "Cambria")
 
 # xtable(a,auto=TRUE) #This produces Latex table
@@ -56,27 +56,12 @@ net$cluster_res
 
 # Have to make the cluster table by hand instead...
 
-####  Co-citation network #### 
-# Shows how the different cited references relate to each other
-NetMatrix <- biblioNetwork(M, analysis = "co-citation", network = "references", sep = ";")
-net=networkPlot(NetMatrix, Title = "Co-citation Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=1.5, edgesize = 10, edges.min=5, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE, remove.isolates = TRUE)
-
-net$cluster_res
-# This network shows nodes that has at least 5 edges. This filter was chosen in order to reveal the most important cited literature the reviews uses. 
-# In a way, this network is the flip side of bibliographic coupling network. 
-
-#### Author Keywords Analysis  #### 
-NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "author_keywords", sep = ";")
-net=networkPlot(NetMatrix, Title = "Author Keywords Co-occurence Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=5, edgesize = 10, edges.min=1, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE,  remove.isolates = TRUE)
-
-net$cluster_res
-# Using Louvain clustering, 11 clusters were identified. It's interesting to see that that there are three isolated clusters that seems to be by itself. By explaining through these clusters, the "summarization" of the different reviews would be complete. 
-
 ####  Abstract Co-occurence Network, 1-gram #### 
-abstract_terms = termExtraction(M, Field="AB", ngrams=1, verbose=F, stemming = TRUE)
+removeterm = c(stopwords(language = "en", source = "smart"),"resilience","review","research","study","studies","systematic","results","literature","paper")
+abstract_terms = termExtraction(M, Field="AB", ngrams=1, verbose=T, stemming = F,remove.terms = removeterm)
 NetMatrix <- biblioNetwork(abstract_terms, analysis = "co-occurrences", network = "abstracts")
 summary(networkStat(NetMatrix))
-net=networkPlot(NetMatrix, Title = "Abstract Co-occurence Network (1-gram)", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=2, edgesize = 3, edges.min=5, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE, remove.isolates = TRUE) # 4 clusters seems to be the most stable one.
+net=networkPlot(NetMatrix, Title = "Abstract Co-occurence Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=T, labelsize=2, edgesize = 4, edges.min=4, label=TRUE, label.cex=TRUE, cluster="louvain", curved=T, remove.isolates = TRUE) # 4 clusters seems to be the most stable one.
 
 net$cluster_res
 # I'm debating if this should be included... I don't think so, because the previous network already does the summarization job... Also, a lot harder to interpret.
@@ -110,3 +95,19 @@ net$cluster_res
 # 
 # # Shiny Interface
 # biblioshiny() #to use the Shiny interface.
+
+#### Author Keywords Analysis  #### 
+NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "author_keywords", sep = ";",remove.terms = "resilience")
+net=networkPlot(NetMatrix, Title = "Author Keywords Co-occurence Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=2, edgesize = 10, edges.min=1, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE,  remove.isolates = TRUE)
+
+net$cluster_res
+# Using Louvain clustering, 10/11 clusters were identified. It's interesting to see that that there are three isolated clusters that seems to be by itself. By explaining through these clusters, the "summarization" of the different reviews would be complete. 
+
+####  Co-citation network #### 
+# Shows how the different cited references relate to each other
+NetMatrix <- biblioNetwork(M, analysis = "co-citation", network = "references", sep = ";")
+net=networkPlot(NetMatrix, Title = "Co-citation Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=1.5, edgesize = 10, edges.min=5, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE, remove.isolates = TRUE)
+
+net$cluster_res
+# This network shows nodes that has at least 5 edges. This filter was chosen in order to reveal the most important cited literature the reviews uses. 
+# In a way, this network is the flip side of bibliographic coupling network. 

@@ -43,7 +43,7 @@ library(quanteda.textmodels)
 library(quanteda.textstats)
 library(quanteda.textplots)
 library(readtext)
-library(quanteda.corpora)
+# library(quanteda.corpora)
 library(ggplot2)
 
 set.seed(123)
@@ -148,7 +148,7 @@ dfmat %>%
   coord_flip() +
   labs(x = "Words", y = "Frequency") +
   theme_minimal() + 
-  ggtitle("Infrastructure Resilience Definitions, Top 10 Word Occurences")
+  ggtitle("Infrastructure Resilience Definitions, Top 10")
 
 layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
 par(mar=rep(0, 4))
@@ -328,7 +328,14 @@ labs = labs %>% left_join(df,by = join_by(label == Abbreviation)) %>% select(-c(
 ggplot(segment(ddata_x),horiz=T) +
   geom_segment(aes(y=x, x=y, yend=xend, xend=yend)) +
   geom_text(data=label(ddata_x), aes(label=label, y=x, x=y, colour=labs$Classification)) +
-  ggtitle("Definition Similarity")
+  ggtitle("Definition Similarity") +
+  theme(axis.text.x=element_blank(), #remove x axis labels
+        axis.ticks.x=element_blank(), #remove x axis ticks
+        axis.text.y=element_blank(),  #remove y axis labels
+        axis.ticks.y=element_blank(),  #remove y axis ticks
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank()
+  )
 
 # I know this is an ugly picture, but it's easier to see which ones are which category. It really is a mix of results. It's interesting to see the definitions for urban resilience is rather close to community resilience and the other urban definition is close infrastructure resilience. Organizational resilience is the most removed. Not surprising, especially if one looks at the kind of definition that was used. 
 
