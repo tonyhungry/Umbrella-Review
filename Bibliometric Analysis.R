@@ -37,34 +37,56 @@ a %>%
 
 #### Bibliographic Coupling Network ####
 NetMatrix <- biblioNetwork(M, analysis = "coupling", network = "references", sep = ";")
-net=networkPlot(NetMatrix, Title = "Bibliographic Coupling Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=3, edgesize = 10, edges.min=1, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE)
+net=networkPlot(NetMatrix, Title = "", type = "auto", size.cex=F, size=3, remove.multiple=FALSE, labelsize=1, edgesize = 10, edges.min=1, label=TRUE, label.cex=F, cluster="louvain", curved=T)
 # dotted lines means that there are still connections exist between papers, and the colored lines represent within cluster connections
-summary(net) # Look at the net object
+#summary(net) # Look at the net object
 
 bibnet = net$graph # extract the igraph object and name it bibnet 
 V(bibnet)$label == V(bibnet)$name # make sure it is all true. 
 nodenames = gsub(" [A-Za-z]+,", "", V(bibnet)$name) # transform the names/labels and make it a bit nicer
 V(bibnet)$label = nodenames
 V(bibnet)$name = nodenames
-plot(bibnet) # plot it!
-# summary(bibnet)
+
+summary(bibnet)
+V(bibnet)$label.cex = degree(bibnet)/max(degree(bibnet))*1.2
+V(bibnet)$size = degree(bibnet)/max(degree(bibnet)) * 3
+plot(bibnet,layout=layout_with_fr,label.cex=degree(bibnet)) # plot it!
 
 #edgelist = as_edgelist(bibnet) # Look at it in an edgelist.
-net$cluster_res
+df = net$cluster_res
+sum(df$cluster==1) # 16 reviews are in one cluster 
 
-# As stated in the slides, it is very interesting to see that with Louvain clustering, there are two clusters grouped just by using the references that each review cites.
+is.weighted(bibnet) #TRUE
+is.directed(bibnet) #FALSE
+ecount(bibnet) # 1563
+vcount(bibnet) # 29
 
-# Have to make the cluster table by hand instead...
+average.path.length(bibnet,weights = E(bibnet)$weights) # 1.842365
+transitivity(bibnet) # 0.8496723 (ignoring the weights)
+diameter(bibnet, directed = F,weights=E(bibnet)$weights) # 3
+
+#remove the weights
+E(bibnet)$weight = count.multiple(bibnet)
+bibnet = simplify(bibnet,edge.attr.comb = list(weight="min"))
+any(which_multiple(bibnet))
+E(bibnet)$weight
+
+transitivity(bibnet,type="barrat",weights = E(bibnet)$weight)
+graph.density(bibnet) #0.7980296
+mean(degree(bibnet)) # 22.34483
+mean(strength(bibnet,weights = E(bibnet)$weights)) # 107.7931
+
 
 ####  Abstract Co-occurence Network, 1-gram #### 
-removeterm = c(stopwords(language = "en", source = "smart"),"resilience","review","research","study","studies","systematic","results","literature","paper")
+require(stopwords)
+removeterm = c(stopwords(language = "en", source = "smart"),"resilience","review","research","study","studies","systematic","results","literature","paper","systematically","due")
 abstract_terms = termExtraction(M, Field="AB", ngrams=1, verbose=T, stemming = F,remove.terms = removeterm)
 NetMatrix <- biblioNetwork(abstract_terms, analysis = "co-occurrences", network = "abstracts")
 summary(networkStat(NetMatrix))
-net=networkPlot(NetMatrix, Title = "Abstract Co-occurence Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=T, labelsize=2, edgesize = 4, edges.min=4, label=TRUE, label.cex=TRUE, cluster="louvain", curved=T, remove.isolates = TRUE) # 4 clusters seems to be the most stable one.
+net=networkPlot(NetMatrix, Title = "", type = "auto", size.cex=TRUE, size=3, remove.multiple=T, labelsize=2, edgesize = 4, edges.min=5, label=TRUE, label.cex=TRUE, cluster="louvain", curved=T, remove.isolates = TRUE) # 4 clusters seems to be the most stable one.
 
-net$cluster_res
-# I'm debating if this should be included... I don't think so, because the previous network already does the summarization job... Also, a lot harder to interpret.
+df = net$cluster_res
+View(df)
 
 #### Unused Codes ####
 
@@ -97,17 +119,17 @@ net$cluster_res
 # biblioshiny() #to use the Shiny interface.
 
 #### Author Keywords Analysis  #### 
-NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "author_keywords", sep = ";",remove.terms = "resilience")
-net=networkPlot(NetMatrix, Title = "Author Keywords Co-occurence Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=2, edgesize = 10, edges.min=1, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE,  remove.isolates = TRUE)
+# NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "author_keywords", sep = ";",remove.terms = "resilience")
+# net=networkPlot(NetMatrix, Title = "Author Keywords Co-occurence Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=2, edgesize = 10, edges.min=1, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE,  remove.isolates = TRUE)
+# 
+# net$cluster_res
+# # Using Louvain clustering, 10/11 clusters were identified. It's interesting to see that that there are three isolated clusters that seems to be by itself. By explaining through these clusters, the "summarization" of the different reviews would be complete. 
+# 
+# ####  Co-citation network #### 
+# # Shows how the different cited references relate to each other
+# NetMatrix <- biblioNetwork(M, analysis = "co-citation", network = "references", sep = ";")
+# net=networkPlot(NetMatrix, Title = "Co-citation Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=1.5, edgesize = 10, edges.min=5, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE, remove.isolates = TRUE)
 
-net$cluster_res
-# Using Louvain clustering, 10/11 clusters were identified. It's interesting to see that that there are three isolated clusters that seems to be by itself. By explaining through these clusters, the "summarization" of the different reviews would be complete. 
-
-####  Co-citation network #### 
-# Shows how the different cited references relate to each other
-NetMatrix <- biblioNetwork(M, analysis = "co-citation", network = "references", sep = ";")
-net=networkPlot(NetMatrix, Title = "Co-citation Network", type = "auto", size.cex=TRUE, size=3, remove.multiple=FALSE, labelsize=1.5, edgesize = 10, edges.min=5, label=TRUE, label.cex=TRUE, cluster="louvain", curved=TRUE, remove.isolates = TRUE)
-
-net$cluster_res
+# net$cluster_res
 # This network shows nodes that has at least 5 edges. This filter was chosen in order to reveal the most important cited literature the reviews uses. 
 # In a way, this network is the flip side of bibliographic coupling network. 

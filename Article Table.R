@@ -10,8 +10,7 @@ library(kableExtra)
 library(readr)
 scopus <- read_csv("scopus.csv")
 
-publications = scopus %>% select(Title,Authors,Year,DOI,'Cited by') %>% mutate(Ref = "")
-publications[1,5] = 0
+publications = scopus %>% select(Title,Authors,Year,DOI)
 publications = publications %>% arrange(Title)
 
 publications %>%
@@ -20,4 +19,4 @@ publications %>%
 
 # An empty column is added for 
 
-# xtable(publications,auto=TRUE) # makes Latex tables
+xtable(publications,auto=TRUE) # makes Latex tables
