@@ -209,3 +209,13 @@ tonynet = function (NetMatrix, normalize = NULL, n = NULL, degree = NULL,
               params = params)
   return(net)
 }
+#### textplot_network####
+function (x, min_freq = 0.5, omit_isolated = TRUE, edge_color = "#1F78B4", 
+          edge_alpha = 0.5, edge_size = 2, vertex_color = "#4D4D4D", 
+          vertex_size = 2, vertex_labelcolor = NULL, vertex_labelfont = NULL, 
+          vertex_labelsize = 5, offset = NULL, ...) 
+{
+  UseMethod("textplot_network")
+}
+<bytecode: 0x12784ff58>
+  <environment: namespace:quanteda.textplots>

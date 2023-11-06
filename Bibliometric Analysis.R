@@ -77,16 +77,16 @@ mean(degree(bibnet)) # 22.34483
 mean(strength(bibnet,weights = E(bibnet)$weights)) # 107.7931
 
 
-####  Abstract Co-occurence Network, 1-gram #### 
-require(stopwords)
-removeterm = c(stopwords(language = "en", source = "smart"),"resilience","review","research","study","studies","systematic","results","literature","paper","systematically","due")
-abstract_terms = termExtraction(M, Field="AB", ngrams=1, verbose=T, stemming = F,remove.terms = removeterm)
-NetMatrix <- biblioNetwork(abstract_terms, analysis = "co-occurrences", network = "abstracts")
-summary(networkStat(NetMatrix))
-net=networkPlot(NetMatrix, Title = "", type = "auto", size.cex=TRUE, size=3, remove.multiple=T, labelsize=2, edgesize = 4, edges.min=5, label=TRUE, label.cex=TRUE, cluster="louvain", curved=T, remove.isolates = TRUE) # 4 clusters seems to be the most stable one.
-
-df = net$cluster_res
-View(df)
+####  Abstract Co-occurence Network #### 
+# require(stopwords)
+# removeterm = c(stopwords(language = "en", source = "smart"),"resilience","review","research","study","studies","systematic","results","literature","paper","systematically","due")
+# abstract_terms = termExtraction(M, Field="AB", ngrams=1, verbose=T, stemming = F,remove.terms = removeterm)
+# NetMatrix <- biblioNetwork(abstract_terms, analysis = "co-occurrences", network = "abstracts")
+# summary(networkStat(NetMatrix))
+# net=networkPlot(NetMatrix, Title = "", type = "auto", size.cex=TRUE, size=3, remove.multiple=T, labelsize=2, edgesize = 4, edges.min=5, label=TRUE, label.cex=TRUE, cluster="louvain", curved=T, remove.isolates = TRUE) # 4 clusters seems to be the most stable one.
+# 
+# df = net$cluster_res
+# View(df)
 
 #### Unused Codes ####
 

@@ -9,7 +9,7 @@ library(dplyr)
 library(xtable) # converts tables to latex tables
 library(kableExtra)
 require(quanteda)
-require(quanteda.corpora)
+require(quanteda.textplots)
 require(seededlda)
 require(lubridate)
 
@@ -18,9 +18,31 @@ set.seed(123)
 # Convert cleaned data to data frame
 M <- convert2df(file="savedrecs.txt", dbsource="wos",format="plaintext")
 
-# Extract the columms that I really need, which are AB, DE, and TI
+# Extract the columms that I really need, which are AB (Abstract), DE(), and TI
 akt.df  = cbind.data.frame(M$AB, M$DE, M$TI)
 colnames(akt.df) = c("AB","DE","TI")
+
+#### Abstract Co-occurrence Network ####
+names = rownames(M)
+abs = cbind.data.frame(names,M$AB)
+colnames(abs) = c("docnames","texts")
+
+abs.corp = corpus(abs,text_field="texts")
+ndoc(abs.corp) #29
+
+set.seed(100)
+toks <- abs.corp %>%
+  tokens(remove_punct = TRUE, remove_numbers = TRUE, remove_symbol = TRUE) %>%
+  tokens_remove(pattern = c(stopwords(source="smart"), "purpose", "design", "methodology", "approach", "finding*", "research", "implication*", "conclusion*","review","resilien*", padding = FALSE)) %>% 
+  tokens_tolower()
+fcmat <- fcm(toks_abs, context = "window", tri = FALSE)
+feat <- names(topfeatures(fcmat, 50))
+fcm_select(fcmat, pattern = feat) %>%
+  textplot_network(min_freq = 0.5)
+
+graph = as.igraph(fcmat)
+plot(graph,)
+cluster_louvain(graph)
 
 #### Sequential LDA with only the Abstract ####
 
