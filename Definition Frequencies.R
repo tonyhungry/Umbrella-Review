@@ -13,6 +13,7 @@
 
 # Remove unnecessary objects and plots in the environment
 rm(list = ls(all.names = TRUE))
+
 # dev.off()
 # graphics.off()
 
@@ -35,7 +36,7 @@ pacman::p_unload(pacman::p_loaded(), character.only = TRUE)
 
 normal_words = c("resilien*","transport*","define*","refer*","water")
 
-# All Definitions ####
+
 
 # Load packages
 library(quanteda)
@@ -50,83 +51,116 @@ set.seed(123)
 
 corp = corpus(df,text_field = "texts") # create corpus
 
+# All Definitions ####
 ## 1-gram ####
-def_tok <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_tolower() %>% # makes everything lower case
-  tokens_remove(pattern = stopwords("en", source = "smart")) %>% # removes stopwords
-  tokens_remove(normal_words) %>% # removes common words that are specific to this topic
-  tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% # lemmatize words
-  tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex") # an additional line to make sure that the tokens are really regular words.
-
-dfmat <- dfm(def_tok)
-
-dfmat %>% 
-  textstat_frequency(n = 10) %>% 
-  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
-  geom_point() +
-  coord_flip() +
-  labs(x = "Words", y = "Frequency") +
-  theme_minimal() + 
-  ggtitle("All Definitions, Top 10, 1-gram")
-
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "All Resilience Definition Word Cloud, 1-gram")
-textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::turbo(15)))
+# def_tok <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>%
+#   tokens_tolower() %>% # makes everything lower case
+#   tokens_remove(pattern = stopwords("en", source = "smart")) %>% # removes stopwords
+#   tokens_remove(normal_words) %>% # removes common words that are specific to this topic
+#   tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% # lemmatize words
+#   tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex") # an additional line to make sure that the tokens are really regular words.
+# 
+# dfmat <- dfm(def_tok)
+# 
+# dfmat %>%
+#   textstat_frequency(n = 10) %>%
+#   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+#   geom_point() +
+#   coord_flip() +
+#   labs(x = "Words", y = "Frequency") +
+#   theme_minimal() +
+#   ggtitle("All Definitions, Top 10, 1-gram")
+# 
+# # layout(matrix(c(1, 1), nrow=1), heights=c(1, 4))
+# # par(mar=rep(0, 4))
+# # plot.new()
+# #text(x=0.5, y=0.5, "All Resilience Definition Word Cloud, 1-gram")
+# par(mar=c(0,0,0,0))
+# textplot_wordcloud(dfmat, max_words = 100, color = rainbow(100),min_size = 1,max_size = 3)
 
 ## 2-gram ####
 
-def_tok <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_tolower() %>% 
-  tokens_ngrams(n=2) %>% 
-  tokens_remove(pattern = stopwords("en", source = "smart")) %>%
-  tokens_remove(normal_words) %>% 
-  tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma)
-
-dfmat <- dfm(def_tok)
-
-dfmat %>% 
-  textstat_frequency(n = 10) %>% 
-  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
-  geom_point() +
-  coord_flip() +
-  labs(x = "Words", y = "Frequency") +
-  theme_minimal() + 
-  ggtitle("All Definitions, Top 10, 2-gram")
-
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "All Resilience Definition Word Cloud, 2-gram")
-textplot_wordcloud(dfmat, max_words = 100, color = viridis::turbo(15))
-
-## 1+2-gram ####
-
-def_tok <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_tolower() %>% 
-  tokens_ngrams(n=1:2) %>% 
-  tokens_remove(pattern = stopwords("en", source = "smart")) %>%
-  tokens_wordstem() 
-
-dfmat <- dfm(def_tok)
-
-dfmat %>% 
-  textstat_frequency(n = 10) %>% 
-  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
-  geom_point() +
-  coord_flip() +
-  labs(x = "Words", y = "Frequency") +
-  theme_minimal() + 
-  ggtitle("All Definitions, Top 10, 1+2-grams")
-
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "All Resilience Definition Word Cloud, 1+2-grams")
-textplot_wordcloud(dfmat, max_words = 100, color = viridis::turbo(15))
+# def_tok <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+#   tokens_tolower() %>% 
+#   tokens_ngrams(n=2) %>% 
+#   tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+#   tokens_remove(normal_words) %>% 
+#   tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma)
+# 
+# dfmat <- dfm(def_tok)
+# 
+# dfmat %>% 
+#   textstat_frequency(n = 10) %>% 
+#   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+#   geom_point() +
+#   coord_flip() +
+#   labs(x = "Words", y = "Frequency") +
+#   theme_minimal() + 
+#   ggtitle("All Definitions, Top 10, 2-gram")
+# 
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "All Resilience Definition Word Cloud, 2-gram")
+# textplot_wordcloud(dfmat, max_words = 100, color = viridis::turbo(15))
+# 
+# ## 1+2-gram ####
+# 
+# def_tok <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+#   tokens_tolower() %>% 
+#   tokens_ngrams(n=1:2) %>% 
+#   tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+#   tokens_wordstem() 
+# 
+# dfmat <- dfm(def_tok)
+# 
+# dfmat %>% 
+#   textstat_frequency(n = 10) %>% 
+#   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+#   geom_point() +
+#   coord_flip() +
+#   labs(x = "Words", y = "Frequency") +
+#   theme_minimal() + 
+#   ggtitle("All Definitions, Top 10, 1+2-grams")
+# 
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "All Resilience Definition Word Cloud, 1+2-grams")
+# textplot_wordcloud(dfmat, max_words = 100, color = viridis::turbo(15))
 
 # From all these wordclouds, the ones that really makes sense is the 1-gram. 
+
+
+
+# Non-infrastructure Definitions ####
+ninfra = corpus_subset(corp, Classification != "Infrastructure")
+
+## 1-gram ###
+def_tok <- tokens(ninfra, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+  tokens_tolower() %>% 
+  tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+  tokens_remove(normal_words) %>% 
+  tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
+  tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
+
+dfmat <- dfm(def_tok)
+
+dfmat %>% 
+  textstat_frequency(n = 10) %>% 
+  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = "Words", y = "Frequency") +
+  theme_minimal() + 
+  ggtitle("Non-infrastructure Resilience Definitions, Top 10")
+
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "Non-infrastructure Resilience Definition Word Cloud")
+textplot_wordcloud(dfmat, color = viridis::plasma(100,direction=-1),min_size = 1,max_size = 3,max_words = 100)
+
 
 # Infrastructure Definitions ####
 infra = corpus_subset(corp, Classification == "Infrastructure")
@@ -150,195 +184,231 @@ dfmat %>%
   theme_minimal() + 
   ggtitle("Infrastructure Resilience Definitions, Top 10")
 
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "Infrastructure Resilience Definition Word Cloud")
-textplot_wordcloud(dfmat, max_words = 100, color = viridis::mako(15))
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "Infrastructure Resilience Definition Word Cloud")
+textplot_wordcloud(dfmat, max_words = 100, color = viridis::mako(100,direction = -1),min_size = 1,max_size = 3.5)
+
 
 # Community Definitions ####
-commun = corpus_subset(corp, Classification == "Community")
-
-## 1-gram ###
-
-def_tok <- tokens(commun, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_tolower() %>% 
-  tokens_remove(pattern = stopwords("en", source = "smart")) %>%
-  tokens_remove(normal_words) %>% 
-  tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
-  tokens_remove("community") %>% 
-  tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
-
-dfmat <- dfm(def_tok)
-
-dfmat %>% 
-  textstat_frequency(n = 10) %>% 
-  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
-  geom_point() +
-  coord_flip() +
-  labs(x = "Words", y = "Frequency") +
-  theme_minimal() + 
-  ggtitle("Community Resilience Definitions, Top 10 Word Occurences")
-
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "Community Resilience Definition Word Cloud")
-textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::magma(15)))
-
-# Urban Definitions ####
-urban = corpus_subset(corp, Classification == "Urban")
-
-## 1-gram ###
-
-def_tok <- tokens(urban, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_tolower() %>% 
-  tokens_remove(pattern = stopwords("en", source = "smart")) %>%
-  tokens_remove(normal_words) %>% 
-  tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
-  tokens_remove("urban") %>% 
-  tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
-
-dfmat <- dfm(def_tok)
-
-dfmat %>% 
-  textstat_frequency(n = 10) %>% 
-  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
-  geom_point() +
-  coord_flip() +
-  labs(x = "Words", y = "Frequency") +
-  theme_minimal() + 
-  ggtitle("Urban Resilience Definitions, Top 10 Word Occurences")
-
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "Urban Resilience Definition Word Cloud")
-textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::viridis(15)))
-
-# Disaster Definitions ####
-disas = corpus_subset(corp, Classification == "Disaster")
-
-## 1-gram ###
-
-def_tok <- tokens(disas, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_tolower() %>% 
-  tokens_remove(pattern = stopwords("en", source = "smart")) %>%
-  tokens_remove(normal_words) %>% 
-  tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
-  tokens_remove("disaster*") %>% 
-  tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
-
-dfmat <- dfm(def_tok)
-
-dfmat %>% 
-  textstat_frequency(n = 10) %>% 
-  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
-  geom_point() +
-  coord_flip() +
-  labs(x = "Words", y = "Frequency") +
-  theme_minimal() + 
-  ggtitle("Disaster Resilience Definitions, Top 10 Word Occurences")
-
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "Disaster Resilience Definition Word Cloud")
-textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::cividis(15)))
-
-# Organization Definitions ####
-organ = corpus_subset(corp, Classification == "Organization")
-
-## 1-gram ###
-
-def_tok <- tokens(organ, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_tolower() %>% 
-  tokens_remove(pattern = stopwords("en", source = "smart")) %>%
-  tokens_remove(normal_words) %>% 
-  tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
-  tokens_remove(c("organization*","organisation*")) %>% 
-  tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
-
-dfmat <- dfm(def_tok)
-
-dfmat %>% 
-  textstat_frequency(n = 10) %>% 
-  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
-  geom_point() +
-  coord_flip() +
-  labs(x = "Words", y = "Frequency") +
-  theme_minimal() + 
-  ggtitle("Organization Resilience Definitions, Top 10 Word Occurences")
-
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "Organizational Resilience Definition Word Cloud")
-textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::rocket(15)))
-
-# Social Definitions ####
-soci = corpus_subset(corp, Classification == "Social")
-
-## 1-gram ###
-
-def_tok <- tokens(soci, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_tolower() %>% 
-  tokens_remove(pattern = stopwords("en", source = "smart")) %>%
-  tokens_remove(normal_words) %>% 
-  tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
-  tokens_remove("social") %>% 
-  tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
-
-dfmat <- dfm(def_tok)
-
-dfmat %>% 
-  textstat_frequency(n = 10) %>% 
-  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
-  geom_point() +
-  coord_flip() +
-  labs(x = "Words", y = "Frequency") +
-  theme_minimal() + 
-  ggtitle("Social Resilience Definitions, Top 10 Word Occurences")
-
-layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
-par(mar=rep(0, 4))
-plot.new()
-text(x=0.5, y=0.5, "Social Resilience Definition Word Cloud")
-textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::plasma(15)), main="Title")
+# commun = corpus_subset(corp, Classification == "Community")
+# 
+# ## 1-gram ###
+# 
+# def_tok <- tokens(commun, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+#   tokens_tolower() %>% 
+#   tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+#   tokens_remove(normal_words) %>% 
+#   tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
+#   tokens_remove("community") %>% 
+#   tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
+# 
+# dfmat <- dfm(def_tok)
+# 
+# dfmat %>% 
+#   textstat_frequency(n = 10) %>% 
+#   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+#   geom_point() +
+#   coord_flip() +
+#   labs(x = "Words", y = "Frequency") +
+#   theme_minimal() + 
+#   ggtitle("Community Resilience Definitions, Top 10 Word Occurences")
+# 
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "Community Resilience Definition Word Cloud")
+# textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::magma(15)))
+# 
+# # Urban Definitions ####
+# urban = corpus_subset(corp, Classification == "Urban")
+# 
+# ## 1-gram ###
+# 
+# def_tok <- tokens(urban, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+#   tokens_tolower() %>% 
+#   tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+#   tokens_remove(normal_words) %>% 
+#   tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
+#   tokens_remove("urban") %>% 
+#   tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
+# 
+# dfmat <- dfm(def_tok)
+# 
+# dfmat %>% 
+#   textstat_frequency(n = 10) %>% 
+#   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+#   geom_point() +
+#   coord_flip() +
+#   labs(x = "Words", y = "Frequency") +
+#   theme_minimal() + 
+#   ggtitle("Urban Resilience Definitions, Top 10 Word Occurences")
+# 
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "Urban Resilience Definition Word Cloud")
+# textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::viridis(15)))
+# 
+# # Disaster Definitions ####
+# disas = corpus_subset(corp, Classification == "Disaster")
+# 
+# ## 1-gram ###
+# 
+# def_tok <- tokens(disas, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+#   tokens_tolower() %>% 
+#   tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+#   tokens_remove(normal_words) %>% 
+#   tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
+#   tokens_remove("disaster*") %>% 
+#   tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
+# 
+# dfmat <- dfm(def_tok)
+# 
+# dfmat %>% 
+#   textstat_frequency(n = 10) %>% 
+#   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+#   geom_point() +
+#   coord_flip() +
+#   labs(x = "Words", y = "Frequency") +
+#   theme_minimal() + 
+#   ggtitle("Disaster Resilience Definitions, Top 10 Word Occurences")
+# 
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "Disaster Resilience Definition Word Cloud")
+# textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::cividis(15)))
+# 
+# # Organization Definitions ####
+# organ = corpus_subset(corp, Classification == "Organization")
+# 
+# ## 1-gram ###
+# 
+# def_tok <- tokens(organ, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+#   tokens_tolower() %>% 
+#   tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+#   tokens_remove(normal_words) %>% 
+#   tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
+#   tokens_remove(c("organization*","organisation*")) %>% 
+#   tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
+# 
+# dfmat <- dfm(def_tok)
+# 
+# dfmat %>% 
+#   textstat_frequency(n = 10) %>% 
+#   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+#   geom_point() +
+#   coord_flip() +
+#   labs(x = "Words", y = "Frequency") +
+#   theme_minimal() + 
+#   ggtitle("Organization Resilience Definitions, Top 10 Word Occurences")
+# 
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "Organizational Resilience Definition Word Cloud")
+# textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::rocket(15)))
+# 
+# # Social Definitions ####
+# soci = corpus_subset(corp, Classification == "Social")
+# 
+# ## 1-gram ###
+# 
+# def_tok <- tokens(soci, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+#   tokens_tolower() %>% 
+#   tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+#   tokens_remove(normal_words) %>% 
+#   tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma) %>% 
+#   tokens_remove("social") %>% 
+#   tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
+# 
+# dfmat <- dfm(def_tok)
+# 
+# dfmat %>% 
+#   textstat_frequency(n = 10) %>% 
+#   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+#   geom_point() +
+#   coord_flip() +
+#   labs(x = "Words", y = "Frequency") +
+#   theme_minimal() + 
+#   ggtitle("Social Resilience Definitions, Top 10 Word Occurences")
+# 
+# layout(matrix(c(1, 2), nrow=2), heights=c(1, 4))
+# par(mar=rep(0, 4))
+# plot.new()
+# text(x=0.5, y=0.5, "Social Resilience Definition Word Cloud")
+# textplot_wordcloud(dfmat, max_words = 100, color = rev(viridis::plasma(15)), main="Title")
 
 # Similarity Comparison using H Clust ####
 library(tidyverse)
 
+#
+
 df = df_wide %>% unite("definitions", c(`Def 0`:`Def 35`),na.rm=T) %>% 
   rename(Doc_id = ID, texts = definitions) %>% relocate(texts) # This is to collapse all of the definitions into one column.
 
+# df = df_wide[,1:5] %>% 
+#   rename(Doc_id = ID, texts = `Def 0`) %>% relocate(texts) %>% na.omit()
+
 corp_cat = corpus(df,text_field = "texts") # create corpus
 
-toks <- tokens(corp_cat, remove_punct=T)
-dfmat <- dfm(toks, remove = stopwords("en", source = "smart"), tolower=T)
+toks <- tokens(corp_cat, remove_punct=T, remove_symbols = T, remove_numbers = T) %>% 
+  tokens_tolower()  
+  # tokens_remove(pattern = stopwords("en", source = "smart")) %>%
+  # tokens_remove(normal_words) %>% 
+  # tokens_replace(pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma)
+dfmat <- dfm(toks)
 docnames(dfmat) = docvars(dfmat)$Abbreviation
 tstat_dist <- as.dist(textstat_dist(dfmat))
 clust <- hclust(tstat_dist)
+dhc = as.dendrogram(clust)
 # plot(clust, xlab = "Distance", ylab = NULL)
 
 library(ggdendro)
 ddata_x <- dendro_data(clust)
 labs <- label(ddata_x)
 labs = labs %>% left_join(df,by = join_by(label == Abbreviation)) %>% select(-c("texts", "Doc_id","Article Name"))
-ggplot(segment(ddata_x),horiz=T) +
-  geom_segment(aes(y=x, x=y, yend=xend, xend=yend)) +
-  geom_text(data=label(ddata_x), aes(label=label, y=x, x=y, colour=labs$Classification)) +
-  ggtitle("Definition Similarity") +
-  theme(axis.text.x=element_blank(), #remove x axis labels
-        axis.ticks.x=element_blank(), #remove x axis ticks
-        axis.text.y=element_blank(),  #remove y axis labels
-        axis.ticks.y=element_blank(),  #remove y axis ticks
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank()
-  )
+#ddata_x$labels$label[19] = "Sharifi & Y 2016"
 
-# I know this is an ugly picture, but it's easier to see which ones are which category. It really is a mix of results. It's interesting to see the definitions for urban resilience is rather close to community resilience and the other urban definition is close infrastructure resilience. Organizational resilience is the most removed. Not surprising, especially if one looks at the kind of definition that was used. 
+ddata <- dendro_data(dhc, type = "rectangle")
 
-ggdendrogram(clust, rotate=T) + 
-  ggtitle("Definition Similarity")
-# Will this plot instead.
+# library(ggsci)
+cbPalette <- c("#999999", "#009E73", "#E69F00", "#0072B2", "#D55E00", "#CC79A7")
+ggplot(segment(ddata)) + 
+  geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
+  coord_flip() + 
+  scale_y_reverse(expand = c(0.7, 0)) + 
+  geom_text(data=label(ddata_x), aes(x=x, y=y, label=label, hjust=0,colour=labs$Classification,family="mono"), size=6) + scale_colour_manual(values=cbPalette) + 
+  theme_minimal() +
+  ylab("Definition Distance (hclust, complete)") + xlab("") + labs(color="Classification") + theme(axis.ticks = element_blank(),axis.text.y = element_blank(),text=element_text(family="mono"),legend.position="bottom", legend.box = "horizontal") + guides(color=guide_legend(nrow=1))
+
+
+
+
+
+# ggplot() + 
+#   geom_segment(data=segment(ddata_x), aes(x=x, y=y, xend=xend, yend=yend)) + 
+#   geom_text(data=label(ddata_x), aes(x=x, y=y, label=label, hjust=0,colour=labs$Classification,family="mono"), size=5) +
+#   coord_flip() + scale_y_reverse(expand=c(0.2, 0)) 
+#   xlab("Definition Distance (hclust, complete)") +
+#   # theme(axis.line.y=element_blank(),
+#   #       axis.ticks.y=element_blank(),
+#   #       axis.text.y=element_blank(),
+#   #       axis.title.y=element_blank(),
+#   #       axis.title.x = element_blank(),
+#   #       panel.background=element_rect(fill="white"),
+#   #       panel.grid=element_blank()) + labs(color='Classification')
+# 
+# # ggplot(segment(ddata_x),horiz=T) +
+# #   geom_segment(aes(y=x, x=y, yend=xend, xend=yend)) +
+# #   geom_text(data=label(ddata_x), aes(label=label, y=x, x=y, colour=labs$Classification)) +
+# #   ggtitle("") + theme_minimal()+ 
+# #   theme(#axis.text.x=element_blank(), #remove x axis labels
+# #         #axis.ticks.x=element_blank(), #remove x axis ticks
+# #         axis.text.y=element_blank(),  #remove y axis labels
+# #         axis.ticks.y=element_blank(),  #remove y axis ticks
+# #         axis.title.x = element_blank(),
+# #         axis.title.y = element_blank())
+#   

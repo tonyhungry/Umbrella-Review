@@ -20,3 +20,5 @@ publications %>%
 # An empty column is added for 
 
 xtable(publications,auto=TRUE) # makes Latex tables
+
+# Leiden Clustering Results

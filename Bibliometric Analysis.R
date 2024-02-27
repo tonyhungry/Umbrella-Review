@@ -37,7 +37,7 @@ a %>%
 
 #### Bibliographic Coupling Network ####
 NetMatrix <- biblioNetwork(M, analysis = "coupling", network = "references", sep = ";")
-net=networkPlot(NetMatrix, Title = "", type = "auto", size.cex=F, size=3, remove.multiple=FALSE, labelsize=1, edgesize = 10, edges.min=1, label=TRUE, label.cex=F, cluster="louvain", curved=T)
+net=networkPlot(NetMatrix, Title = "", type = "auto", size.cex=F, size=3, remove.multiple=FALSE, labelsize=1, edgesize = 10, edges.min=1, label=TRUE, label.cex=F, cluster="leiden", curved=T)
 # dotted lines means that there are still connections exist between papers, and the colored lines represent within cluster connections
 #summary(net) # Look at the net object
 
@@ -50,18 +50,19 @@ V(bibnet)$name = nodenames
 summary(bibnet)
 V(bibnet)$label.cex = degree(bibnet)/max(degree(bibnet))*1.2
 V(bibnet)$size = degree(bibnet)/max(degree(bibnet)) * 3
+par(mar=c(0,0,0,0))
 plot(bibnet,layout=layout_with_fr,label.cex=degree(bibnet)) # plot it!
 
 #edgelist = as_edgelist(bibnet) # Look at it in an edgelist.
 df = net$cluster_res
-sum(df$cluster==1) # 16 reviews are in one cluster 
+sum(df$cluster==1) # 17 reviews are in one cluster 
 
 is.weighted(bibnet) #TRUE
 is.directed(bibnet) #FALSE
 ecount(bibnet) # 1563
 vcount(bibnet) # 29
 
-average.path.length(bibnet,weights = E(bibnet)$weights) # 1.842365
+average.path.length(bibnet,weights = E(bibnet)$weights) # 1.852217
 transitivity(bibnet) # 0.8496723 (ignoring the weights)
 diameter(bibnet, directed = F,weights=E(bibnet)$weights) # 3
 

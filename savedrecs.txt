@@ -4653,8 +4653,8 @@ MA 37-7007
 BP 370
 EP 370
 DT Review
-PD MAY 2022
-PY 2022
+PD MAY 2020
+PY 2020
 LA English
 DE Flood risk management; resilience; systems approach
 AB Hydro-hazards are increasing in frequency due to climate change which has inspired a cultural change in Flood Risk Management (FRM). Uncertainty associated with climate change has resulted in a shift towards flood resilience as it helps deal with unexpected climatic perturbations that impact extreme flows. The concept of resilience has increased in popularity, leading to a multitude of definitions, measurements and applications. This paper systematically reviews the FRM literature to provide clarity on the differing perspectives of resilience and how they influence successful implementation of the concept. Our analysis assesses where FRM is positioned within three pre-defined interdisciplinary understandings of resilience. The polysemic nature of resilience has produced a multitude of different perspectives that prevent successful operationalisation. Resilience is interdisciplinary; therefore it requires integration between top-down and bottom-up FRM approaches, as well as a more holistic approach to the interdependence between temporal and spatial scales.
